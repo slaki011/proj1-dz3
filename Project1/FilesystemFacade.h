@@ -12,8 +12,8 @@ public:
 	void writeFile(Byte* content,File* f);
 	void grantAccess(FSObject* fObj, Text* opName = nullptr);
 	void revokeAccess(FSObject* fObj, Text* opName = nullptr);
-	Folder openFolder(Text* folderPath);
-	FSObject* search(Text* objName);
+	Folder* openFolder(Text* folderPath);
+	std::vector<FSObject*> search(Text* objName);
 	void copyPaste(FSObject* objToCopy, Folder* destFolder, Text* name);
 	void move(FSObject* objToMove, Folder* destFolder);
 	bool deleteF(FSObject* objToDelete);

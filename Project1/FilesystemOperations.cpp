@@ -32,6 +32,9 @@ void ListDirectory::execute()
 }
 void Search::execute()
 {
+	SearchVisitor v(folderToSearch);
+	root->accept(&v);
+	found = v.foundObjects;
 }
 void ProtectedOperation::execute()
 {

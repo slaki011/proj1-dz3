@@ -73,7 +73,10 @@ public:
 //done!
 class Search :public FSOperation {
 public:
-	Search(File fn) :FSOperation("Search") {}
+	Text* folderToSearch;
+	Folder* root;
+	std::vector<FSObject*> found;
+	Search(Text *folderToSearch,Folder* root) :FSOperation("Search"), folderToSearch(folderToSearch){}
 	void execute();
 };
 class ProtectedOperation :public FSOperation {

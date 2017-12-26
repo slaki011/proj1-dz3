@@ -54,17 +54,24 @@ void Filesystem::revokeAccess(FSObject * fObj, Text * opName)
 	else {
 		return;
 	}
-
+}
+Folder * Filesystem::openFolder(Text * folderPath)
+{
+	std::vector<char*> putanja;
+	for (int i = 0; i < sizeof(folderPath) / sizeof(folderPath[0]); i++) {
+		if (folderPath[i] == '/')continue;
+		else {
+			
+		}
+	}
 }
 //done!
-//Folder Filesystem::openFolder(Text * folderPath)
-//{
-//	
-//}
-//FSObject * Filesystem::search(Text * objName)
-//{
-//	return nullptr;
-//}
+std::vector<FSObject*> Filesystem::search(Text * objName)
+{
+	Search s(objName, rootFolder);
+	return s.found;
+}
+//done!
 void Filesystem::copyPaste(FSObject * objToCopy, Folder * destFolder, Text * name)
 {
 	CopyPaste cp(objToCopy, destFolder, name);

@@ -1,0 +1,17 @@
+﻿  FilesystemObject.cpp
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.h(19): warning C4930: 'AccessDescriptor accessDescriptor(void)': prototyped function not called (was a variable definition intended?)
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.cpp(59): warning C4018: '<': signed/unsigned mismatch
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.cpp(75): warning C4018: '<': signed/unsigned mismatch
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.cpp(84): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.cpp(107): warning C4715: 'File::size': not all control paths return a value
+  Compiling...
+  main.cpp
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.h(19): warning C4930: 'AccessDescriptor accessDescriptor(void)': prototyped function not called (was a variable definition intended?)
+  FilesystemOperations.cpp
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.h(19): warning C4930: 'AccessDescriptor accessDescriptor(void)': prototyped function not called (was a variable definition intended?)
+  FilesystemFacade.cpp
+c:\users\bs150540d\documents\visual studio 2017\projects\project1\project1\filesystemobject.h(19): warning C4930: 'AccessDescriptor accessDescriptor(void)': prototyped function not called (was a variable definition intended?)
+  Generating Code...
+  Project1.vcxproj -> c:\users\bs150540d\documents\visual studio 2017\Projects\Project1\Debug\Project1.exe
+  Project1.vcxproj -> c:\users\bs150540d\documents\visual studio 2017\Projects\Project1\Debug\Project1.pdb (Partial PDB)

@@ -66,7 +66,7 @@ public:
 };
 class SearchVisitor :public FilesystemVisitor {
 private:
-	Text* filepath;
+	Text* filename;
 public:
 	SearchVisitor(Text*);
 	void visitFile(File* f);

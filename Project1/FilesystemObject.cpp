@@ -113,22 +113,20 @@ Byte* File::read() {
 File::~File() {
 	delete content;
 }
-//class SearchVisitor :public FilesystemVisitor {
-//private:
-//	Text filepath;
-//public:
-//	void visitFile(File f);
-//	void visitFolder(Folder f);
-//	vector<FSObject*> foundObjects;
-//};
+
 SearchVisitor::SearchVisitor(Text* t) {
-	std::strcpy(filepath, t);
+	std::strcpy(filename, t);
 }
 void SearchVisitor::visitFile(File * f)
 {
-	foundObjects.push_back(f);
+	if (f->getName() == filename) 
+		foundObjects.push_back(f);
 }
 void SearchVisitor::visitFolder(Folder * f)
 {
-	foundObjects.push_back(f);
+	if (f->getName() == filename)
+		foundObjects.push_back(f);
+	for (unsigned int i = 0; i < f->containedObjects.size(); i++) {
+			f->containedObjects[i]->accept(this);
+	}
 }

@@ -1,4 +1,6 @@
 #include "FilesystemOperations.h"
+#include "FilesystemObject.h"
+
 
 void WriteFile::execute()
 {

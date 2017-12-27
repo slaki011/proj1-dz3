@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FILESYSTEMOBJECT_H
+#define FILESYSTEMOBJECT_H
+
 #include<string>
 #include<vector>
 using namespace std;
@@ -16,7 +18,6 @@ private:
 	Text* name;
 public:
 	FSObject(Text* nm, Folder* fn = nullptr):name(nm), parent(fn) {
-		AccessDescriptor accessDescriptor();
 	}
 	Folder* parent;                                                               //0..1 ?????
 	Text* getName();
@@ -86,3 +87,5 @@ public:
 	bool checkAccess(Text* operationName);
 	~AccessDescriptor();
 };
+
+#endif

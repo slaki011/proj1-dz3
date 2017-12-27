@@ -1,5 +1,12 @@
-#pragma once
-#include"FilesystemOperations.h"
+#ifndef FILESYSTEMFACADE_H
+#define FILESYSTEMFACADE_H
+
+class FSObject;
+class Folder;
+class File;
+typedef char Text;
+typedef char* Byte;
+#include<vector>
 
 class Filesystem {
 private:
@@ -10,7 +17,7 @@ private:
 public:
 	static Filesystem* getInstance();
 	File* createFile(Text* fName, Folder* destFolder);
-	Folder* createFolder(Text* fName, Folder* parentFolder);
+	Folder* createFolder(Text* fName, Folder* parentFolder=nullptr);
 	FSObject* listFolder(Folder* folder);
 	Byte* readFile(File* file);
 	void writeFile(Byte* content,File* f);
@@ -27,3 +34,6 @@ public:
 		delete rootFolder;
 	}
 };
+Filesystem* Filesystem::instance = nullptr;
+
+#endif

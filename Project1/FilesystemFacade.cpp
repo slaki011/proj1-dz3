@@ -1,4 +1,6 @@
 #include "FilesystemFacade.h"
+#include "FilesystemObject.h"
+#include "FilesystemOperations.h"
 
 Filesystem::Filesystem() {
 	rootFolder = new Folder("rootFolder");
@@ -14,15 +16,17 @@ Filesystem * Filesystem::getInstance()
 File* Filesystem::createFile(Text * fName, Folder * destFolder)
 {
 	CreateFile cf(fName, destFolder);
-	ProtectedOperation a(&cf);
+	/*ProtectedOperation a(&cf);
 	a.execute();
-	if(a.checkPrecondition)
+	if(a.checkPrecondition())*/
 	cf.execute();
 	return cf.f;
 }
 //done!
 Folder* Filesystem::createFolder(Text * fName, Folder * parentFolder)
 {
+	if (parentFolder == nullptr)
+		parentFolder = rootFolder;
 	CreateFolder cf(fName, parentFolder);
 	cf.execute();
 	return cf.f;

@@ -1,6 +1,12 @@
-#pragma once
-#include"FilesystemObject.h"
+#ifndef FILESYSTEMOPERATIONS_H
+#define FILESYSTEMOPERATIONS_H
 
+#include<vector>
+class FSObject;
+class Folder;
+class File;
+typedef char Text;
+typedef char* Byte;
 
 class FSOperation {
 private:
@@ -93,3 +99,4 @@ public:
 	Move(FSObject * objToMove, Folder * destFolder) :FSOperation("Move"),objToMove(objToMove),destFolder(destFolder) {}
 	void execute();
 };
+#endif

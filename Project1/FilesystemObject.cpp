@@ -124,9 +124,12 @@ void SearchVisitor::visitFile(File * f)
 }
 void SearchVisitor::visitFolder(Folder * f)
 {
-	if (f->getName() == filename)
+	if (f->getName() == filename) {
 		foundObjects.push_back(f);
+		folder = f;
+	}
 	for (unsigned int i = 0; i < f->containedObjects.size(); i++) {
 			f->containedObjects[i]->accept(this);
 	}
+
 }

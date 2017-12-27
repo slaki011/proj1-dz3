@@ -3,7 +3,7 @@
 
 class Filesystem {
 public:
-	Filesystem(Folder* rootFolder);
+	Filesystem(Folder* rootFolder) {}
 	Folder* rootFolder;
 	File* createFile(Text* fName, Folder* destFolder);
 	Folder* createFolder(Text* fName, Folder* parentFolder);

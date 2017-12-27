@@ -61,7 +61,7 @@ Folder * Filesystem::openFolder(Text * folderPath)
 	std::vector<char*> putanja;
 	Text* ime;
 	for (int i = 0; i < sizeof(folderPath) / sizeof(folderPath[0]); i++) {
-		if (folderPath[i] == '/') {
+		if (folderPath[i] == '/'|| folderPath[i] == '\0') {
 			ime = new Text(sizeof(ime) + sizeof(char));
 			strcat(ime, "\0");
 			putanja.push_back(ime);
@@ -77,11 +77,12 @@ Folder * Filesystem::openFolder(Text * folderPath)
 	for (unsigned int i = 0; i < putanja.size(); i++){
 		Text* key = putanja[i];
 		SearchVisitor v(key);
-		root.visit(v);
-		std::vector<FSObject*>rootf = v.foundObjects();
+		root->accept(&v);
 		
-
-}
+		Folder* novi = v.folder;
+		root = novi;
+		}
+	return root;
 }
 //done!
 std::vector<FSObject*> Filesystem::search(Text * objName)

@@ -46,9 +46,8 @@ public:
 //done!
 class DeleteObject :public FSOperation {
 public:
-	bool check;
 	FSObject* objToDelete;
-	DeleteObject(FSObject *objToDelete) :FSOperation("DeleteObject"),objToDelete(objToDelete),check(false) {}
+	DeleteObject(FSObject *objToDelete) :FSOperation("DeleteObject"),objToDelete(objToDelete) {}
 	void execute();
 };
 class CreateFolder :public FSOperation {
@@ -86,9 +85,11 @@ public:
 	void execute();
 };
 class ProtectedOperation :public FSOperation {
+private:
+	FSObject* ff;
 public:
 	FSOperation* wrappedOperation;
-	ProtectedOperation(FSOperation* operacija):FSOperation("protectedOperation"),wrappedOperation(operacija){}
+	ProtectedOperation(FSOperation* operacija,FSObject* ff):FSOperation("protectedOperation"),wrappedOperation(operacija),ff(ff){}
 	void execute();
 	bool checkPrecondition();
 };

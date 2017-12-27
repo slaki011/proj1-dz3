@@ -2,6 +2,9 @@
 #include "FilesystemObject.h"
 #include "FilesystemOperations.h"
 
+
+Filesystem* Filesystem::instance = nullptr;
+
 Filesystem::Filesystem() {
 	rootFolder = new Folder("rootFolder");
 }
@@ -122,8 +125,10 @@ void Filesystem::move(FSObject * objToMove, Folder * destFolder)
 bool Filesystem::deleteF(FSObject * objToDelete)
 {
 	DeleteObject del(objToDelete);
-	del.execute();
-	return del.check;
+	ProtectedOperation po(&del, objToDelete);
+	po.checkPrecondition();
+	string msg = "Greska u operaciji delete!";
+	if (po.checkPrecondition())throw OperationFailedException(msg);
 }
 void Filesystem::setSize(long a)
 {

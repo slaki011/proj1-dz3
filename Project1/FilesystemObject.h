@@ -1,6 +1,6 @@
 #ifndef FILESYSTEMOBJECT_H
 #define FILESYSTEMOBJECT_H
-
+#include"FilesystemException.h"
 #include<string>
 #include<vector>
 using namespace std;
@@ -18,6 +18,7 @@ private:
 	Text* name;
 public:
 	FSObject(Text* nm, Folder* fn = nullptr):name(nm), parent(fn) {
+	accessDescriptor = new AccessDescriptor();
 	}
 	Folder* parent;                                                               //0..1 ?????
 	Text* getName();
@@ -51,7 +52,9 @@ class File :public FSObject {
 private:
 	Byte* content;
 public:
-	File(Text* a, Folder* fn=nullptr) :FSObject(a, fn), content(nullptr) {}
+	File(Text* a, Folder* fn=nullptr) :FSObject(a, fn) {
+		content = nullptr;
+	}
 	void accept(FilesystemVisitor* v);
 	void write(Byte* content);
 	FSObject* copy();
@@ -87,5 +90,18 @@ public:
 	bool checkAccess(Text* operationName);
 	~AccessDescriptor();
 };
+
+class CheckVisitor :public FilesystemVisitor {
+private:
+	Text* access;
+public:
+	bool check;
+	CheckVisitor(Text*);
+	void visitFile(File* f);
+	void visitFolder(Folder* f);
+};
+
+
+
 
 #endif

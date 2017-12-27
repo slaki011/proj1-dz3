@@ -112,6 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FilesystemException.h" />
     <ClInclude Include="FilesystemFacade.h" />
     <ClInclude Include="FilesystemObject.h" />
     <ClInclude Include="FilesystemOperations.h" />

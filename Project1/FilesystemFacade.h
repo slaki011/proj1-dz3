@@ -12,9 +12,10 @@ class Filesystem {
 private:
 	Filesystem();
 	static Filesystem* instance;
-	Folder* rootFolder;
+	
 	long size,used;
 public:
+	Folder* rootFolder;
 	static Filesystem* getInstance();
 	File* createFile(Text* fName, Folder* destFolder);
 	Folder* createFolder(Text* fName, Folder* parentFolder=nullptr);
@@ -34,6 +35,6 @@ public:
 		delete rootFolder;
 	}
 };
-Filesystem* Filesystem::instance = nullptr;
+
 
 #endif

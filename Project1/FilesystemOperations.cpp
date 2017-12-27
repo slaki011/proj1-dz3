@@ -14,7 +14,6 @@ void DeleteObject::execute()
 {
 	(objToDelete->parent)->remove(objToDelete);
 	delete objToDelete;
-	check = true;
 }
 void CreateFolder::execute()
 {
@@ -40,7 +39,18 @@ void Search::execute()
 }
 void ProtectedOperation::execute()
 {
-
+	wrappedOperation->execute();
+}
+bool ProtectedOperation::checkPrecondition()
+{
+	if (wrappedOperation->getName() == "DeleteObject") {
+		string a = "Neki od podfajlova/podfoldera ne dozvoljava pristup!";
+		CheckVisitor cv(wrappedOperation->getName());
+		ff->accept(&cv);
+		if (cv.check) this->execute();
+		else throw AccessException(a);
+	}
+	
 }
 Text* FSOperation::getName()
 {

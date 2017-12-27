@@ -8,10 +8,6 @@ void FSObject::setName(Text * name)
 {
 	this->name = name;
 }
-//AccessDescriptor FSObject::getAccessDescriptor()
-//{
-//	return *accessDescriptor;
-//}
 FSObject::~FSObject() {
 	delete name;
 	parent = nullptr;
@@ -51,7 +47,7 @@ void Folder::accept(FilesystemVisitor* v) {
 void Folder::add(FSObject* o) {
 	containedObjects.push_back(o);
 }
-//	long size() {}????????????????????????????????????
+
 std::vector<FSObject*> Folder::getObjects() {
 	return containedObjects;
 }
@@ -91,9 +87,7 @@ void File::accept(FilesystemVisitor* v) {
 	v->visitFile(this);
 }
 void File::write(Byte* content) {
-	Byte* a= this->content;
-	Byte* b = content;
-	std::strcpy(*this->content, *content);
+		this->content = new Byte(*content);
 }
 FSObject* File::copy() {
 	File* novi = new File(this->getName(), this->parent);
@@ -106,7 +100,7 @@ long File::size()
 	if(content!=nullptr)return sizeof(content);
 }
 
-//	long size() {} /???????????????????????????????????????????????????
+
 Byte* File::read() {
 	return this->content;
 }
@@ -115,7 +109,7 @@ File::~File() {
 }
 
 SearchVisitor::SearchVisitor(Text* t) {
-	std::strcpy(filename, t);
+	filename = new Text(*t);
 }
 void SearchVisitor::visitFile(File * f)
 {
@@ -132,4 +126,28 @@ void SearchVisitor::visitFolder(Folder * f)
 			f->containedObjects[i]->accept(this);
 	}
 
+}
+CheckVisitor::CheckVisitor(Text * t)
+{
+	access = new Text(*t);
+}
+void CheckVisitor::visitFile(File * f)
+{
+	AccessDescriptor* a = f->getAccessDescriptor();
+	if (a->checkAccess(access)) {
+		check = true;
+	}
+	else
+		check = false;
+}
+void CheckVisitor::visitFolder(Folder * f)
+{
+	AccessDescriptor* a = f->getAccessDescriptor();
+	if (a->checkAccess(access)) {
+		check = true;
+	}
+	else check = false;
+	for (unsigned int i = 0; i < f->containedObjects.size(); i++) {
+		f->containedObjects[i]->accept(this);
+	}
 }

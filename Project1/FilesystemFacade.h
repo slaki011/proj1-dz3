@@ -2,9 +2,13 @@
 #include"FilesystemOperations.h"
 
 class Filesystem {
-public:
-	Filesystem(Folder* rootFolder) {}
+private:
+	Filesystem();
+	static Filesystem* instance;
 	Folder* rootFolder;
+	long size,used;
+public:
+	static Filesystem* getInstance();
 	File* createFile(Text* fName, Folder* destFolder);
 	Folder* createFolder(Text* fName, Folder* parentFolder);
 	FSObject* listFolder(Folder* folder);
@@ -17,6 +21,7 @@ public:
 	void copyPaste(FSObject* objToCopy, Folder* destFolder, Text* name);
 	void move(FSObject* objToMove, Folder* destFolder);
 	bool deleteF(FSObject* objToDelete);
+	void setSize(long a);
 	long freeSpace();
 	~Filesystem() {
 		delete rootFolder;

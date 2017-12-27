@@ -1,5 +1,15 @@
 #include "FilesystemFacade.h"
 
+Filesystem::Filesystem() {
+	rootFolder = new Folder("rootFolder");
+}
+
+Filesystem * Filesystem::getInstance()
+{
+	if (instance == nullptr)
+		instance = new Filesystem();
+	return instance;
+}
 
 File* Filesystem::createFile(Text * fName, Folder * destFolder)
 {
@@ -111,8 +121,13 @@ bool Filesystem::deleteF(FSObject * objToDelete)
 	del.execute();
 	return del.check;
 }
+void Filesystem::setSize(long a)
+{
+	this->size = a;
+}
 //done!
-//long Filesystem::freeSpace()
-//{
-//	return 0;
-//}
+long Filesystem::freeSpace()
+{
+	return size - used;
+}
+//done!

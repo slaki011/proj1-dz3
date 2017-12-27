@@ -4,6 +4,9 @@
 File* Filesystem::createFile(Text * fName, Folder * destFolder)
 {
 	CreateFile cf(fName, destFolder);
+	ProtectedOperation a(&cf);
+	a.execute();
+	if(a.checkPrecondition)
 	cf.execute();
 	return cf.f;
 }
@@ -78,7 +81,6 @@ Folder * Filesystem::openFolder(Text * folderPath)
 		Text* key = putanja[i];
 		SearchVisitor v(key);
 		root->accept(&v);
-		
 		Folder* novi = v.folder;
 		root = novi;
 		}

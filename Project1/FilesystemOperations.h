@@ -80,7 +80,11 @@ public:
 	void execute();
 };
 class ProtectedOperation :public FSOperation {
-	void execute();															//koj je ovo kurac????
+public:
+	FSOperation* wrappedOperation;
+	ProtectedOperation(FSOperation* operacija):FSOperation("protectedOperation"),wrappedOperation(operacija){}
+	void execute();
+	bool checkPrecondition();
 };
 class Move :public FSOperation {
 public:
@@ -88,4 +92,4 @@ public:
 	Folder* destFolder;
 	Move(FSObject * objToMove, Folder * destFolder) :FSOperation("Move"),objToMove(objToMove),destFolder(destFolder) {}
 	void execute();
-};\
+};

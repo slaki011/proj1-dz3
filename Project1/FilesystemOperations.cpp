@@ -38,6 +38,7 @@ void Search::execute()
 }
 void ProtectedOperation::execute()
 {
+
 }
 Text* FSOperation::getName()
 {

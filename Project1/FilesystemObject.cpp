@@ -1,6 +1,8 @@
 #include"FilesystemObject.h"
 
-
+Folder::Folder(Text* a, Folder* fn) :FSObject(a, fn) {
+	accessDescriptor = new AccessDescriptor(this);
+}
 Text* FSObject::getName() {
 	return name;
 }
@@ -12,9 +14,15 @@ FSObject::~FSObject() {
 	delete name;
 	parent = nullptr;
 }
+AccessDescriptor::AccessDescriptor(FSObject* f)
+{
+	allowedOperations = new Text*();
+	protectedObject = f;
+}
 void AccessDescriptor::add(Text* operationName) {
-	/**allowedOperations = new Text(sizeof(operationName)+sizeof(allowedOperations));
-	*allowedOperations = std::strcat(*allowedOperations, operationName);*/
+	int a = sizeof(allowedOperations) / sizeof(allowedOperations[0]);
+	if (allowedOperations == nullptr)a = 0;
+	*(allowedOperations + a) = new Text(*operationName);
 }
 void AccessDescriptor::remove(Text* operationName) {
 	int n = sizeof(allowedOperations) / sizeof(allowedOperations[0]);
@@ -26,9 +34,11 @@ void AccessDescriptor::remove(Text* operationName) {
 	}
 }
 Text** AccessDescriptor::getAllowedOperations() {
+	if (allowedOperations == nullptr) return nullptr;
 	return allowedOperations;
 }
 bool AccessDescriptor::checkAccess(Text* operationName) {
+	if (this->getAllowedOperations() == nullptr) return false;
 	int n = sizeof(allowedOperations) / sizeof(allowedOperations[0]);
 	for (int i = 0; i < n; i++) {
 		if (std::strcmp(allowedOperations[i], operationName)) {
@@ -82,6 +92,11 @@ Folder::~Folder() {
 		delete containedObjects[i];
 	}
 
+}
+File::File(Text * a, Folder * fn) :FSObject(a, fn)
+{
+	content = nullptr;
+	accessDescriptor = new AccessDescriptor(this);
 }
 void File::accept(FilesystemVisitor* v) {
 	v->visitFile(this);

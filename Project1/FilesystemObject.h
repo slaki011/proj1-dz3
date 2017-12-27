@@ -13,12 +13,12 @@ class AccessDescriptor;
 class Folder;
 class FilesystemVisitor;
 class FSObject {
-private:
+protected:
 	AccessDescriptor *accessDescriptor;
 	Text* name;
 public:
 	FSObject(Text* nm, Folder* fn = nullptr):name(nm), parent(fn) {
-	accessDescriptor = new AccessDescriptor();
+	
 	}
 	Folder* parent;                                                               //0..1 ?????
 	Text* getName();
@@ -35,7 +35,7 @@ class Folder :public FSObject {
 private:
 	
 public:
-	Folder(Text* a, Folder* fn=nullptr) :FSObject(a, fn) {}
+	Folder(Text* a, Folder* fn = nullptr);
 	void accept(FilesystemVisitor* v);
 	void add(FSObject* o);
 	long size() { return 1; }
@@ -52,9 +52,7 @@ class File :public FSObject {
 private:
 	Byte* content;
 public:
-	File(Text* a, Folder* fn=nullptr) :FSObject(a, fn) {
-		content = nullptr;
-	}
+	File(Text* a, Folder* fn);
 	void accept(FilesystemVisitor* v);
 	void write(Byte* content);
 	FSObject* copy();
@@ -83,7 +81,7 @@ private:
 	FSObject* protectedObject;
 	Text** allowedOperations;
 public:
-	AccessDescriptor():allowedOperations(nullptr), protectedObject(nullptr){}
+	AccessDescriptor(FSObject*);
 	void add(Text* operationName);
 	void remove(Text* operationName);
 	Text** getAllowedOperations();

@@ -1,5 +1,6 @@
 #include "FilesystemFacade.h"
 
+
 File* Filesystem::createFile(Text * fName, Folder * destFolder)
 {
 	CreateFile cf(fName, destFolder);
@@ -28,9 +29,9 @@ Byte* Filesystem::readFile(File * file)
 	return rf.stanje;
 }
 //done!
-void Filesystem::writeFile(Byte * content,File* f)
+void Filesystem::writeFile(Byte * content, File* f)
 {
-	WriteFile wf(content,f);
+	WriteFile wf(content, f);
 	wf.execute();
 }
 //done!
@@ -58,12 +59,29 @@ void Filesystem::revokeAccess(FSObject * fObj, Text * opName)
 Folder * Filesystem::openFolder(Text * folderPath)
 {
 	std::vector<char*> putanja;
+	Text* ime;
 	for (int i = 0; i < sizeof(folderPath) / sizeof(folderPath[0]); i++) {
-		if (folderPath[i] == '/')continue;
+		if (folderPath[i] == '/') {
+			ime = new Text(sizeof(ime) + sizeof(char));
+			strcat(ime, "\0");
+			putanja.push_back(ime);
+			delete ime;
+			continue;
+		}
 		else {
-			
+			ime = new Text(sizeof(ime) + sizeof(char));
+			strcat(ime, &folderPath[i]);
 		}
 	}
+	Folder* root = rootFolder;
+	for (unsigned int i = 0; i < putanja.size(); i++){
+		Text* key = putanja[i];
+		SearchVisitor v(key);
+		root.visit(v);
+		std::vector<FSObject*>rootf = v.foundObjects();
+		
+
+}
 }
 //done!
 std::vector<FSObject*> Filesystem::search(Text * objName)

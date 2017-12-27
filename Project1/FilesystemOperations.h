@@ -88,4 +88,4 @@ public:
 	Folder* destFolder;
 	Move(FSObject * objToMove, Folder * destFolder) :FSOperation("Move"),objToMove(objToMove),destFolder(destFolder) {}
 	void execute();
-};
+};\
